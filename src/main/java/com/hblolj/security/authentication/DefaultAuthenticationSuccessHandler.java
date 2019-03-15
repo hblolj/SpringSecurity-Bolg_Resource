@@ -25,5 +25,8 @@ public class DefaultAuthenticationSuccessHandler implements AuthenticationSucces
                                         Authentication authentication) throws IOException, ServletException {
 
         log.info("Login Success!");
+
+        httpServletResponse.setContentType("application/json;charset=UTF-8");
+        httpServletResponse.getWriter().write(authentication.getPrincipal().toString());
     }
 }

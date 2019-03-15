@@ -1,4 +1,4 @@
-package com.hblolj.security.browser;
+package com.hblolj.security.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
