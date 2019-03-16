@@ -1,6 +1,7 @@
 package com.hblolj.security.browser;
 
 import com.hblolj.security.authentication.mobile.SmsCodeAuthenticationConfig;
+import com.hblolj.security.authentication.wx.WxAuthenticationConfig;
 import com.hblolj.security.logout.DefaultLogoutSuccessHandler;
 import com.hblolj.security.session.DefaultExpiredSessionStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     @Autowired
     private SmsCodeAuthenticationConfig smsCodeAuthenticationConfig;
 
+    @Autowired
+    private WxAuthenticationConfig wxAuthenticationConfig;
+
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -46,6 +50,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
 
         http.apply(smsCodeAuthenticationConfig) // 加载短信验证
+                .and()
+                .apply(wxAuthenticationConfig)
                 .and()
                 .formLogin() // 指定登录认证方式为表单登录
 //                .loginPage("http://www.baidu.com") //指定自定义登录页面地址，一般前后端分离，这里就用不到了
