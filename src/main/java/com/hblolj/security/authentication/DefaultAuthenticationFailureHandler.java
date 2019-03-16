@@ -26,5 +26,8 @@ public class DefaultAuthenticationFailureHandler implements AuthenticationFailur
 
         // 实现登录失败处理逻辑
         log.info("Login Failure!");
+        httpServletResponse.setCharacterEncoding("UTF-8");
+        httpServletResponse.setContentType("application/json;charset=UTF-8");
+        httpServletResponse.getWriter().write(e.getMessage());
     }
 }

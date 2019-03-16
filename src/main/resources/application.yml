@@ -1,3 +1,18 @@
 server:
   port: 8080
   context-path: /security
+  session:
+    timeout: 600 #单位为 Second，设置的时间低于 1 分钟，按 1 分钟处理
+spring:
+  session:
+    store-type: redis #设置将 Session 存储在 Redis 中
+  redis:
+    host: your self redis ip
+    port: 6379
+    database: 6
+    password: your self password
+    pool:
+      max-wait: -1
+      max-idle: 1
+      max-active: 8
+      min-idle: 0

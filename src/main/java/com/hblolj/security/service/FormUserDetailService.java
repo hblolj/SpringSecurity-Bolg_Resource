@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
  * @Description:
  * @Version:
  **/
-@Component
+@Component("formUserDetailService")
 public class FormUserDetailService implements UserDetailsService{
 
     @Autowired
