@@ -18,10 +18,10 @@ spring:
   session:
     store-type: redis #设置将 Session 存储在 Redis 中
   redis:
-    host: 139.224.130.149
+    host: 
     port: 6379
     database: 6
-    password: info@jtedu.io
+    password: 
     pool:
       max-wait: -1
       max-idle: 1
