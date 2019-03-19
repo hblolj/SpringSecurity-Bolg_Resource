@@ -1,18 +1,39 @@
 server:
-  port: 8080
-  context-path: /security
+  port: 80
   session:
     timeout: 600 #单位为 Second，设置的时间低于 1 分钟，按 1 分钟处理
 spring:
+  datasource:
+    social:
+      url: jdbc:mysql://localhost:3306/secutitystudy?characterEncoding=utf8&useSSL=true
+      username: root
+      password: root
+      driver-class-name: com.mysql.jdbc.Driver
+      max-idle: 10
+      max-wait: 60000
+      maxActive: 10
+      defaultAutoCommit: true
+      testOnBorrow: true
+      validationQuery: select 1
   session:
     store-type: redis #设置将 Session 存储在 Redis 中
   redis:
-    host: your redis ip
+    host: 139.224.130.149
     port: 6379
     database: 6
-    password: your redis password
+    password: info@jtedu.io
     pool:
       max-wait: -1
       max-idle: 1
       max-active: 8
       min-idle: 0
+hblolj:
+  security:
+    browser:
+      signUpUrl: /register.html
+    social:
+      filterProcessesUrl: /qqLogin
+      qq:
+        appId: 101469197
+        appSecret: 34c07ddc9d236669ea1b806d7de2ad13
+        providerId: callback

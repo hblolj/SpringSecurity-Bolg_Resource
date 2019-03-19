@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录页面</title>
+</head>
+<body>
+
+<h3>社交登录</h3>
+<!-- /auth/qq -> SocialAuthenticationFilter 默认拦截 auth 开头请求, qq 标识服务提供商(也可以自定义) -->
+<!-- /security/auth/qq 自定义后变为 /qqLogin/callback.do   security 是 yml 配置取消了所有没有了 -->
+<a href="/qqLogin/callback">QQ 登录</a>
+</body>
+</html>

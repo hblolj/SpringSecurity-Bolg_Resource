@@ -3,6 +3,7 @@ package com.hblolj.security.browser;
 import com.hblolj.security.authentication.mobile.SmsCodeAuthenticationConfig;
 import com.hblolj.security.authentication.wx.WxAuthenticationConfig;
 import com.hblolj.security.logout.DefaultLogoutSuccessHandler;
+import com.hblolj.security.properties.SecurityProperties;
 import com.hblolj.security.session.DefaultExpiredSessionStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.social.security.SpringSocialConfigurer;
 
 /**
  * @author: hblolj
@@ -41,6 +43,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     @Autowired
     private WxAuthenticationConfig wxAuthenticationConfig;
 
+    @Autowired
+    private SecurityProperties securityProperties;
+
+    /**
+     * Social 认证配置
+     */
+    @Autowired
+    private SpringSocialConfigurer customSocialConfig;
+
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -50,9 +61,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
 
         http.apply(smsCodeAuthenticationConfig) // 加载短信验证
-                .and()
+                    .and()
                 .apply(wxAuthenticationConfig)
-                .and()
+                    .and()
+                .apply(customSocialConfig)
+                    .and()
                 .formLogin() // 指定登录认证方式为表单登录
 //                .loginPage("http://www.baidu.com") //指定自定义登录页面地址，一般前后端分离，这里就用不到了
                     .loginProcessingUrl("/authentication/form") // 自定义表单登录的 action 地址，默认是 /login
@@ -75,7 +88,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .authorizeRequests()
                     .antMatchers("/session/invalid").permitAll()
                     .antMatchers("/authentication/mobile").permitAll()
-                    .antMatchers("/page/login.html").permitAll() // 允许登录页面不需要认证就可以访问，不然会死循环导致重定向次数过多
+                    .antMatchers(
+                            "/signIn.html",
+                            "/user/regist",
+                            "/user/getSocialUserInfo",
+                            securityProperties.getBrowser().getSignUpUrl()).permitAll() // 允许登录页面不需要认证就可以访问，不然会死循环导致重定向次数过多
                     .anyRequest() // 对所有的请求
                     .authenticated() // 都进行认证
                 .and()
