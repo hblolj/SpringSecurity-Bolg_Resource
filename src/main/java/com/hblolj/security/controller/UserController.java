@@ -31,7 +31,7 @@ public class UserController {
 
         // TODO: 2019/3/19 注册用户
         // 不管是注册还是绑定，都会获取到用户在业务系统中的唯一标识
-
+        // 注册完成后进行绑定
         providerSignInUtils.doPostSignUp(username, new ServletWebRequest(request));
     }
 

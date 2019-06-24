@@ -6,7 +6,7 @@ import org.springframework.social.connect.support.OAuth2ConnectionFactory;
 /**
  * @author: hblolj
  * @Date: 2019/3/18 10:01
- * @Description:
+ * @Description: 使用自定义的 ServiceProvider 与 Adapter 构建自定义 ConnectionFactory
  * @Version:
  **/
 public class QQConnectionFactory extends OAuth2ConnectionFactory<QQ>{

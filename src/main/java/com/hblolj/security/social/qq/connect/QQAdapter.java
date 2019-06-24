@@ -10,7 +10,11 @@ import org.springframework.social.connect.UserProfile;
 /**
  * @author: hblolj
  * @Date: 2019/3/18 9:29
- * @Description: 用来适配从 QQ 获取到用户基本信息到 SpringSecurity
+ * @Description:
+ *  1. 测试 Api 的使用
+ *  2. 获取用户唯一标识用来构建 ConnectionKey
+ *  3. 绑定解绑
+ *  4. 向 Service Provider 发送消息更新用户信息
  * @Version:
  **/
 @Slf4j
@@ -26,6 +30,18 @@ public class QQAdapter implements ApiAdapter<QQ>{
         return true;
     }
 
+    /**
+     * 用户授权获取到授权码，通过授权码获取到 AccessToken后，Create Connection 时，会调用这里
+     * Create Connection 主要步骤
+     * 1. super(apiAdapter);
+     * 2. this.serviceProvider = serviceProvider;
+     * 3. initAccessTokens(accessToken, refreshToken, expireTime);
+     * 4. initApi(); -> 初始化 Api
+     * 5. initApiProxy();
+     * 6. initKey(providerId, providerUserId); -> 在这里当 providerUserId 为 null 时会调用本方法获取 providerUserId
+     * @param api
+     * @param connectionValues
+     */
     @Override
     public void setConnectionValues(QQ api, ConnectionValues connectionValues) {
 

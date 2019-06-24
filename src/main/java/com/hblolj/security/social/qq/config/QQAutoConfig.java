@@ -46,7 +46,7 @@ public class QQAutoConfig extends SocialAutoConfigurerAdapter{
      * @return
      */
     @Bean({"connect/callbackConnect"})
-    @ConditionalOnMissingBean(name = "qqConnectedView")
+    @ConditionalOnMissingBean(name = "qqConnectView")
     public View qqConnectView(){
         return new CustomConnectionView();
     }

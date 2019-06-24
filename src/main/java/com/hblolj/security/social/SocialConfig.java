@@ -67,7 +67,7 @@ public class SocialConfig extends SocialConfigurerAdapter{
      */
     @Bean
     public SpringSocialConfigurer customSocialSecurityConfig(){
-//        return new SpringSocialConfigurer();
+        // return new SpringSocialConfigurer();
         CustomSpringSocialConfigurer configurer = new CustomSpringSocialConfigurer(securityProperties.getSocial().getFilterProcessesUrl());
         // 配置注册页面，当找不到用户时，会跳转到该页面
         configurer.signupUrl(securityProperties.getBrowser().getSignUpUrl());
