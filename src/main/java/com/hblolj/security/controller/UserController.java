@@ -1,5 +1,6 @@
 package com.hblolj.security.controller;
 
+import com.hblolj.security.social.AppSingUpUtils;
 import com.hblolj.security.support.SocialUserInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class UserController {
     @Autowired
     private ProviderSignInUtils providerSignInUtils;
 
+    @Autowired
+	private AppSingUpUtils appSingUpUtils;
+
     @PostMapping("/regist")
     public void regist(@RequestParam String username, @RequestParam String password, HttpServletRequest request){
 
@@ -32,7 +36,11 @@ public class UserController {
         // TODO: 2019/3/19 注册用户
         // 不管是注册还是绑定，都会获取到用户在业务系统中的唯一标识
         // 注册完成后进行绑定
+
+        // App 注册没有 Session，这里从 Redis 中取出 Connection
         providerSignInUtils.doPostSignUp(username, new ServletWebRequest(request));
+
+//        appSingUpUtils.doPostSignUp(new ServletWebRequest(request), username);
     }
 
     @GetMapping("/getSocialUserInfo")

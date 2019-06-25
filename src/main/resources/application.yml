@@ -16,7 +16,7 @@ spring:
       testOnBorrow: true
       validationQuery: select 1
   session:
-    store-type: redis #设置将 Session 存储在 Redis 中
+    store-type: none #设置将 Session 存储在 Redis 中
   redis:
     host: 
     port: 6379
@@ -37,3 +37,8 @@ hblolj:
         appId: 101469197
         appSecret: 34c07ddc9d236669ea1b806d7de2ad13
         providerId: callback
+security:
+  oauth2:
+    client:
+      client-id: hblolj
+      client-secret: hbloljsecret

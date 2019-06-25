@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -25,7 +26,7 @@ import org.springframework.social.security.SpringSocialConfigurer;
  * @Description:
  * @Version:
  **/
-@Configuration
+//@Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Autowired
@@ -52,11 +53,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     @Autowired
     private SpringSocialConfigurer customSocialConfig;
 
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
@@ -69,7 +65,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .formLogin() // 指定登录认证方式为表单登录
 //                .loginPage("http://www.baidu.com") //指定自定义登录页面地址，一般前后端分离，这里就用不到了
                     .loginProcessingUrl("/authentication/form") // 自定义表单登录的 action 地址，默认是 /login
-                    .successHandler(authenticationSuccessHandler)
+//                    .successHandler(authenticationSuccessHandler)
                     .failureHandler(authenticationFailureHandler)
                 .and()
                 .sessionManagement()
@@ -88,6 +84,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .authorizeRequests()
                     .antMatchers("/session/invalid").permitAll()
                     .antMatchers("/authentication/mobile").permitAll()
+                    .antMatchers("/oauth/**").permitAll()
                     .antMatchers(
                             "/signIn.html",
                             "/user/regist",
@@ -101,5 +98,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 //                .and()
 //                .exceptionHandling()
 //                .authenticationEntryPoint(authenticationEntryPoint); // 实现了 EntryPoint 对 loginPage 有覆盖作用，loginPage 不生效
+        // http://localhost/oauth/authorize?response_type=code&client_id=7f9c6d3a-6d47-4b7d-8e0c-14700eb07eff&redirect_uri=http://example.com&scope=all
     }
 }

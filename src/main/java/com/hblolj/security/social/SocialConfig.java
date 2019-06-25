@@ -39,6 +39,9 @@ public class SocialConfig extends SocialConfigurerAdapter{
     @Autowired(required = false)
     private ConnectionSignUp connectionSignUp;
 
+    @Autowired(required = false)
+    private SocialAuthenticationFilterPostProcessor socialAuthenticationFilterPostProcessor;
+
     /**
      * @param connectionFactoryLocator ConnectionFactory 定位器，系统种可能存在多种 ConnectionFactory( qq、微信、微博...)，
      *                                 选择一种来生成 Connection
@@ -73,6 +76,9 @@ public class SocialConfig extends SocialConfigurerAdapter{
         configurer.signupUrl(securityProperties.getBrowser().getSignUpUrl());
         // 设置登录成功跳转地址
         configurer.postLoginUrl("/hello");
+        // 使用 Session 模式时，socialAuthenticationFilterPostProcessor 可以为 null
+        // 使用 Token 模式时，socialAuthenticationFilterPostProcessor 要有实现，设置认证成功处理，用来生成 Token
+        configurer.setSocialAuthenticationFilterPostProcessor(socialAuthenticationFilterPostProcessor);
         return configurer;
     }
 

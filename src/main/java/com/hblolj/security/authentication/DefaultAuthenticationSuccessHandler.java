@@ -27,7 +27,7 @@ public class DefaultAuthenticationSuccessHandler extends SavedRequestAwareAuthen
 
         log.info("Login Success!");
 
-        httpServletResponse.setContentType("application/json;charset=UTF-8");
-        httpServletResponse.getWriter().write(authentication.getPrincipal().toString());
+//        httpServletResponse.setContentType("application/json;charset=UTF-8");
+//        httpServletResponse.getWriter().write(authentication.getPrincipal().toString());
     }
 }
