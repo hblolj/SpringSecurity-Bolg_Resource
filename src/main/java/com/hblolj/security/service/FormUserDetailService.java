@@ -35,7 +35,7 @@ public class FormUserDetailService implements UserDetailsService, SocialUserDeta
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
 
         // TODO: 2019/3/14 按参数 s 从数据库查找用户信息
-
+        System.out.println("s formUserDetailService");
 //        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
         // 模拟从数据库中取出的密码是已经加密过的密码

@@ -65,7 +65,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .formLogin() // 指定登录认证方式为表单登录
 //                .loginPage("http://www.baidu.com") //指定自定义登录页面地址，一般前后端分离，这里就用不到了
                     .loginProcessingUrl("/authentication/form") // 自定义表单登录的 action 地址，默认是 /login
-//                    .successHandler(authenticationSuccessHandler)
+                    .successHandler(authenticationSuccessHandler)
                     .failureHandler(authenticationFailureHandler)
                 .and()
                 .sessionManagement()
